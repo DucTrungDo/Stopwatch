@@ -62,9 +62,12 @@ const App: React.FC = () => {
     const seconds = Math.floor((time % 60000) / 1000)
     const miliseconds = Math.floor(((time % 60000) % 1000) / 10)
 
-    return `${minutes < 10 ? '0' : ''}${minutes}:${
-      seconds < 10 ? '0' : ''
-    }${seconds}:${miliseconds < 10 ? '0' : ''}${miliseconds}`
+    // return `${minutes < 10 ? '0' : ''}${minutes}:${
+    //   seconds < 10 ? '0' : ''
+    // }${seconds}:${miliseconds < 10 ? '0' : ''}${miliseconds}`
+    return `${minutes.toString().padStart(2, '0')}:${seconds
+      .toString()
+      .padStart(2, '0')}:${miliseconds.toString().padStart(2, '0')}`
   }
   return (
     <div className='text-center'>
@@ -90,37 +93,35 @@ const App: React.FC = () => {
         </button>
       </div>
 
-      <div>
-        <div className='flex justify-center'>
-          {showLap && (
-            <table className='w-80'>
-              <thead>
-                <tr>
-                  <th className='w-1/3'>Lap</th>
-                  <th className='w-1/3'>Time</th>
-                  <th className='w-1/3'>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{lapNumber + 1}</td>
-                  <td>{formatTime(lapTime)}</td>
-                  <td>{formatTime(time)}</td>
-                </tr>
-                {laps
-                  .slice()
-                  .reverse()
-                  .map(({ lapNumber, lapTime, lapTotal }) => (
-                    <tr key={lapNumber}>
-                      <td>{lapNumber}</td>
-                      <td>{formatTime(lapTime)}</td>
-                      <td>{formatTime(lapTotal)}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          )}
-        </div>
+      <div className='text-center'>
+        {showLap && (
+          <table className='w-80'>
+            <thead>
+              <tr>
+                <th className='w-1/3'>Lap</th>
+                <th className='w-1/3'>Time</th>
+                <th className='w-1/3'>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{lapNumber + 1}</td>
+                <td>{formatTime(lapTime)}</td>
+                <td>{formatTime(time)}</td>
+              </tr>
+              {laps
+                .slice()
+                .reverse()
+                .map(({ lapNumber, lapTime, lapTotal }) => (
+                  <tr key={lapNumber}>
+                    <td>{lapNumber}</td>
+                    <td>{formatTime(lapTime)}</td>
+                    <td>{formatTime(lapTotal)}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   )
