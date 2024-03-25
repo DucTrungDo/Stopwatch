@@ -93,7 +93,7 @@ const App: React.FC = () => {
         </button>
       </div>
 
-      <div className='text-center'>
+      <div className='flex justify-center mt-3'>
         {showLap && (
           <table className='w-80'>
             <thead>
